@@ -22,6 +22,12 @@ app.get('/api/jwt', (req, res) => {
   res.json({ token });
 });
 
+// Will all the routes be protected?
+
+app.get('/api/animals', (req, res) => {
+  res.json(  { id: 1, description: 'cat' });
+});
+
 // Read cookie and display list of foods
 app.use(
   jwt({
@@ -40,6 +46,10 @@ const foods = [
 
 app.get('/api/foods', (req, res) => {
   res.json(foods);
+});
+
+app.get('/api/drinks', (req, res) => {
+  res.json(  { id: 1, description: 'beer' });
 });
 
 // Clear cookie
