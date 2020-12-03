@@ -25,7 +25,7 @@ app.get('/api/jwt', (req, res) => {
 // Will all the following routes be protected?
 
 app.get('/api/animals', (req, res) => {
-  res.json(  { id: 1, description: 'cat' });
+  res.json([{ id: 1, description: 'cat' }]);
 });
 
 // Read cookie and display list of foods
@@ -34,7 +34,7 @@ app.use(
     secret: jwtSecret,
     algorithms: ['HS256'],
     // This function tells the express-jwt middleware to look for the token in an incoming cookie
-    getToken: req => req.cookies.token
+    getToken: (req) => req.cookies.token
   })
 );
 
@@ -49,15 +49,14 @@ app.get('/api/foods', (req, res) => {
 });
 
 app.get('/api/drinks', (req, res) => {
-  res.json(  { id: 1, description: 'beer' });
+  res.json([{ id: 1, description: 'beer' }]);
 });
 
 // Clear cookie
-app.get('/api/clearCookie', function(req, res){
+app.get('/api/clearCookie', function (req, res) {
   res.clearCookie('token');
   res.send('cookie token cleared');
 });
 
 // Start server
 app.listen(3001, () => console.log('App running on localhost:3001'));
-
