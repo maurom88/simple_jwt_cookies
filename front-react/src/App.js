@@ -7,6 +7,7 @@ function App() {
   const [jwt, setJwt] = useState(storedJwt || null);
   const [foods, setFoods] = useState([]);
   const [drinks, setDrinks] = useState([]);
+  const [animals, setAnimals] = useState([]);
   const [fetchError, setFetchError] = useState(null);
   const [clearError, setClearError] = useState(null);
 
@@ -33,7 +34,19 @@ function App() {
     try {
       const { data } = await axios.get(`/api/drinks`);
       setDrinks(data);
-      console.log(drinks)
+      console.log(drinks);
+      setFetchError(null);
+    } catch (err) {
+      setFetchError(err.message);
+    }
+  };
+
+  // Add a request to fetch animals (see server.js for route)
+  const getAnimals = async () => {
+    try {
+      const { data } = await axios.get(`/api/animals`);
+      setAnimals(data);
+      console.log(drinks);
       setFetchError(null);
     } catch (err) {
       setFetchError(err.message);
@@ -73,6 +86,15 @@ function App() {
         <ul>
           {drinks.map((drink, i) => (
             <li>{drink.description}</li>
+          ))}
+        </ul>
+        {fetchError && <p style={{ color: 'red' }}>{fetchError}</p>}
+      </section>
+      <section>
+        <button onClick={() => getAnimals()}>Get Animals</button>
+        <ul>
+          {animals.map((animal, i) => (
+            <li>{animal.description}</li>
           ))}
         </ul>
         {fetchError && <p style={{ color: 'red' }}>{fetchError}</p>}
