@@ -6,6 +6,7 @@ function App() {
   const storedJwt = localStorage.getItem('token');
   const [jwt, setJwt] = useState(storedJwt || null);
   const [foods, setFoods] = useState([]);
+  const [drinks, setDrinks] = useState([]);
   const [fetchError, setFetchError] = useState(null);
   const [clearError, setClearError] = useState(null);
 
@@ -28,14 +29,24 @@ function App() {
   };
 
   // Add a request to fetch drinks (see server.js for route)
+  const getDrinks = async () => {
+    try {
+      const { data } = await axios.get(`/api/drinks`);
+      setDrinks(data);
+      console.log(drinks)
+      setFetchError(null);
+    } catch (err) {
+      setFetchError(err.message);
+    }
+  };
 
   // Clear the cookie
   const clearJwt = async () => {
-      try {
-        await axios.get(`/api/clearCookie`);
-      } catch (err) {
-        setClearError(err.message);
-      }
+    try {
+      await axios.get(`/api/clearCookie`);
+    } catch (err) {
+      setClearError(err.message);
+    }
   };
 
   return (
@@ -53,6 +64,15 @@ function App() {
         <ul>
           {foods.map((food, i) => (
             <li>{food.description}</li>
+          ))}
+        </ul>
+        {fetchError && <p style={{ color: 'red' }}>{fetchError}</p>}
+      </section>
+      <section>
+        <button onClick={() => getDrinks()}>Get Drinks</button>
+        <ul>
+          {drinks.map((drink, i) => (
+            <li>{drink.description}</li>
           ))}
         </ul>
         {fetchError && <p style={{ color: 'red' }}>{fetchError}</p>}
