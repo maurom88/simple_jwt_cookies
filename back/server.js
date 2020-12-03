@@ -22,7 +22,7 @@ app.get('/api/jwt', (req, res) => {
   res.json({ token });
 });
 
-// Will all the routes be protected?
+// Will all the following routes be protected?
 
 app.get('/api/animals', (req, res) => {
   res.json(  { id: 1, description: 'cat' });

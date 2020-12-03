@@ -27,6 +27,8 @@ function App() {
     }
   };
 
+  // Add a request to fetch drinks (see server.js for route)
+
   // Clear the cookie
   const clearJwt = async () => {
       try {
