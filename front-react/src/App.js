@@ -67,3 +67,8 @@ function App() {
   );
 }
 export default App;
+
+
+// Extra:
+// - Add control to only clear cookie if there is a cookie
+// - Clear jwt and lists from screen if the cookie is cleared
